@@ -16,10 +16,28 @@ while(True):
     rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB) 
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-    white = "#eb4034"
+    white = "#EEFCF9"
+    yellow = "#F4DB5A"
     white_1, white_2 = aux.ranges(white)
-    mask_white = cv2.inRange(rgb, white_1, white_2)
-    edges = cv2.Canny(gray,50,150,apertureSize = 3) 
+    yellow1 ,yellow2 = aux.ranges(yellow)
+    print(yellow1, yellow2)
+
+    w1 = np.array([ 0, 50, 50], dtype=np.uint8)
+    w2 = np.array([ 255, 255, 255], dtype=np.uint8)
+    y1 = np.array([ 20, 50, 50], dtype=np.uint8)
+    y2 = np.array([ 50, 255, 255], dtype=np.uint8)
+
+   
+
+
+    mask_white = cv2.inRange(hsv, w1, w2)
+    mask_yellow = cv2.inRange(hsv,y1,y2)
+    blurw = cv2.GaussianBlur(mask_white, (5,5),0)
+    blury = cv2.GaussianBlur(mask_yellow, (5,5),0)
+
+    
+    blur = cv2.GaussianBlur(gray, (5,5),0)
+    edges = cv2.Canny(blur,50,150,apertureSize = 3) 
     lines = cv2.HoughLines(edges,1,np.pi/180, 200) 
     
     for r,theta in lines[0]: 
@@ -50,12 +68,12 @@ while(True):
         # cv2.line draws a line in img from the point(x1,y1) to (x2,y2). 
         # (0,0,255) denotes the colour of the line to be  
         #drawn. In this case, it is red.  
-        cv2.line(gray,(x1,y1), (x2,y2), (0,0,255),2) 
+        cv2.line(blur,(x1,y1), (x2,y2), (0,0,255),2) 
           
     
     # Display the resulting frame
     # cv2.imshow('frame',frame)
-    cv2.imshow('hsv', gray)
+    cv2.imshow('hsv', blur)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
