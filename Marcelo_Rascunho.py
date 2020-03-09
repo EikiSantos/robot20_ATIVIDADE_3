@@ -7,6 +7,11 @@ import math
 import auxiliar as aux
 
 video1 = cv2.VideoCapture("video1.mp4")
+#video1 =cv2.rotate(video1)
+x_1 = 0
+x_2 = 0
+y_1 = 0
+y_2 = 0
 x_1r = 1
 x_2r = 1
 y_1r = 1
@@ -64,16 +69,17 @@ while(True):
             y1 = int(y0 + 1000*(a)) 
           
             # x2 stores the rounded off value of (rcos(theta)+1000sin(theta)) 
-            x2 = int(x0 - 1000*(-b)) 
-              
+            x2 = int(x0 - 1000*(-b))
+            
+            y2 = int(y0 - 1000*(a)) 
+                
             # y2 stores the rounded off value of (rsin(theta)-1000cos(theta)) 
             y2 = int(y0 - 1000*(a)) 
-            
             deltay = y2 - y1
             deltax = x2 - x1
             m_inicial = float(deltay/deltax)
             lista_coef_ang = [-1.06,-2.71]
-            if m_inicial >-1.61 and m_inicial <-1:
+            if m_inicial >-5 and m_inicial <-1:
                 #cv2.line(mask_white,(x1,y1), (x2,y2), (100,0,255),2)
                 m_r = m_inicial
                 x_1r = x1
@@ -82,7 +88,7 @@ while(True):
                 y_2r = y2
                 h_r = y_1r - m_r*x_1r
                 #y_reta_r = m_r*
-            elif m_inicial >0.9 and m_inicial < 1.61:
+            elif m_inicial >0.5 and m_inicial < 1.61:
                 #cv2.line(mask_white,(x1,y1), (x2,y2), (100,0,255),2)
                 m_l = m_inicial
                 x_1l = x1
@@ -90,21 +96,21 @@ while(True):
                 y_1l = y1
                 y_2l = y2
                 h_l = y_1l - m_l*x_1l
-            #cv2.line draws a line in img from the point(x_1r,y_1r) to (x_2r,y_2r). 
-            #cv2.line draws a line in img from the point(x_1l,y_1l) to (x_2r,y_2l).
-            cv2.line(mask_white,(x_1r,y_1r), (x_2r,y_2r), (100,0,255),2)
-            cv2.line(mask_white,(x_1l,y_1l), (x_2l,y_2l), (100,0,255),2)
-            # (0,0,255) denotes the colour of the line to be  
-            
-            # Encontrando o intercepto
-            xi = (h_r - h_l) / (m_l - m_r)
-            yi = m_l*xi + h_l
-            xii = int(xi)
-            yii = int(yi)
-            cv2.circle(mask_white,(xii,yii),20,(255,255,255),2)
-            
-            #drawn. In this case, it is red.  
-            #cv2.line(mask_white,(x1,y1), (x2,y2), (100,0,255),2) 
+        #cv2.line draws a line in img from the point(x_1r,y_1r) to (x_2r,y_2r). 
+        #cv2.line draws a line in img from the point(x_1l,y_1l) to (x_2r,y_2l).
+        cv2.line(mask_white,(x_1r,y_1r), (x_2r,y_2r), (100,0,255),2)
+        cv2.line(mask_white,(x_1l,y_1l), (x_2l,y_2l), (100,0,255),2)
+        # (0,0,255) denotes the colour of the line to be  
+        
+        # Encontrando o intercepto
+        #xi = (h_r - h_l) / (m_l - m_r)
+        yi = m_l*xi + h_l
+        xii = int(xi)
+        yii = int(yi)
+        #cv2.circle(mask_white,(xii,yii),20,(255,255,255),2)
+        
+        #drawn. In this case, it is red.  
+        #cv2.line(mask_white,(x1,y1), (x2,y2), (100,0,255),2) 
           
     
     # Display the resulting frame
