@@ -91,7 +91,6 @@ while(True):
                 y_2r = y2
                 h_r = y_1r - m_r*x_1r
             elif m_inicial >0.5 and m_inicial < 1.61:
-                #cv2.line(mask_white,(x1,y1), (x2,y2), (100,0,255),2)
                 m_l = m_inicial
                 x_1l = x1
                 x_2l = x2
