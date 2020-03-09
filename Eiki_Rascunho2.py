@@ -31,14 +31,19 @@ rx_mean = []
 ry_mean = []
 rx = 0
 ry = 0
-i = 0
+kaka = 0
 while(True):
 
     ret, frame = video1.read()
     
     if ret == False:
         print("Codigo de retorno FALSO - problema para capturar o frame")
-
+#------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
+    if n == "3":
+        frame=cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
+#------------------------------------------------------------------------------
+#------------------------------------------------------------------------------    
     rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB) 
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -73,35 +78,31 @@ while(True):
         delta_y = y1-y2
         if delta_x == 0:
             coef_angular = 0
-            print("PULEI")
         else:
             coef_angular = delta_y/delta_x
         modulo_coef = ((coef_angular - coef_angular_anterior)**2)**0.5
         if modulo_coef > 0.3:
             coef_angular_anterior = coef_angular
         coef_angular = float(coef_angular)
-        print(' ')
-        print(' ')
-        print("COEF ANGULAR: ", coef_angular)
-        print(' ')
+#------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
         if n == "1":
-            if coef_angular > 0.6 and coef_angular < 3.84:
+            if coef_angular > 0.62 and coef_angular < 1.3:
                 x_r1 = x1
                 x_r2 = x2
                 y_r1 = y1
                 y_r2 = y2
                 m_r = coef_angular
                 h_r = y_r1 - m_r*x_r1
-                
-                print("------------------------RIGHT----------------------")
-            elif coef_angular > -2.2 and coef_angular < -0.6:
+            elif coef_angular > -1.3 and coef_angular < -0.62:
                 x_l1 = x1
                 x_l2 = x2
                 y_l1 = y1
                 y_l2 = y2
                 m_l = coef_angular
                 h_l = y_l1 - m_l*x_l1
-                print("------------------------LEFT----------------------")
+#------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
         elif n == "2":
             if coef_angular > 3 and coef_angular < 4:
                 x_r1 = x1
@@ -110,8 +111,6 @@ while(True):
                 y_r2 = y2
                 m_r = coef_angular
                 h_r = y_r1 - m_r*x_r1
-                
-                print("------------------------RIGHT----------------------")
             elif coef_angular > -1.1 and coef_angular < -0.67:
                 x_l1 = x1
                 x_l2 = x2
@@ -119,54 +118,55 @@ while(True):
                 y_l2 = y2
                 m_l = coef_angular
                 h_l = y_l1 - m_l*x_l1
-                print("------------------------LEFT----------------------")
+#------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
         elif n == "3":
-            if coef_angular > 0.9 and coef_angular < 3.84:
+            if coef_angular > -7 and coef_angular < -4:
                 x_r1 = x1
                 x_r2 = x2
                 y_r1 = y1
                 y_r2 = y2
                 m_r = coef_angular
                 h_r = y_r1 - m_r*x_r1
-                
-                print("------------------------RIGHT----------------------")
-            elif coef_angular > -2.2 and coef_angular < -0.5:
+            elif coef_angular > 3.5 and coef_angular < 4:
                 x_l1 = x1
                 x_l2 = x2
                 y_l1 = y1
                 y_l2 = y2
                 m_l = coef_angular
                 h_l = y_l1 - m_l*x_l1
-                print("------------------------LEFT----------------------")
-        #cv2.line(mask_white,(x1,y1), (x2,y2), (50,0,255),2)
+#------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
+                
     cv2.line(mask_white,(x_l1, y_l1), (x_l2,y_l2), (50,0,255),2) 
     cv2.line(mask_white,(x_r1,y_r1), (x_r2,y_r2), (50,0,255),2)
     xi = (h_r-h_l)/(m_l-m_r)
     yi = (m_l*xi + h_l)
     xii = int(xi)
     yii = int(yi)
-    #while i < 20:
-#        rx_mean.append(xii)
-#        ry_mean.append(yii)
-#        rx = np.mean(rx_mean)
-#        ry = np.mean(ry_mean)
-#        rx = int(rx)
-    #if i < 20:
-        #i += 1
-    #if i >= 20:
-    #    i = 0
-    #    rx_mean = []
-    #    ry_mean = []
-    #ry = int(ry)
-    #print(type(rx))
-    #print(type(ry))
+    
+#------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
+    if kaka < 20:
+        rx_mean.append(xii)
+        ry_mean.append(yii)
+        rx = np.mean(rx_mean)
+        ry = np.mean(ry_mean)
+        rx = int(rx)
+        ry = int(ry)
+        kaka += 1
+    if kaka >= 20:
+        kaka = 0
+        rx_mean = []
+        ry_mean = []
+#------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
     cv2.circle(mask_white, (xii, yii), 2, (255,255,255), 2)
     cv2.circle(mask_white, (xii, yii), 10, (255,255,255), 2)
-    #cv2.circle(mask_white, (rx, ry), 50, (255,255,255), 2)
-#    font = cv2.FONT_HERSHEY_SIMPLEX
-#    cv2.putText(mask_white,'Coeficiente Angular: {0}'.format(m_r),(0,50), font, 1,(255,255,255),2,cv2.LINE_AA)
+    cv2.circle(mask_white, (rx, ry), 50, (255,255,255), 2)
     cv2.imshow('mask_white', mask_white)
-    
+#------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 video1.release()
