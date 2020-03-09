@@ -62,7 +62,11 @@ while(True):
         
         delta_x = x1-x2
         delta_y = y1-y2
-        coef_angular = delta_y/delta_x
+        if delta_x == 0:
+            coef_angular = 0
+            print("PULEI")
+        else:
+            coef_angular = delta_y/delta_x
         modulo_coef = ((coef_angular - coef_angular_anterior)**2)**0.5
         if modulo_coef > 0.3:
             coef_angular_anterior = coef_angular
@@ -71,7 +75,7 @@ while(True):
         print(' ')
         print("COEF ANGULAR: ", coef_angular)
         print(' ')
-        if coef_angular > 0.9 and coef_angular < 1.61:
+        if coef_angular > 0.9 and coef_angular < 3.84:
             x_r1 = x1
             x_r2 = x2
             y_r1 = y1
@@ -80,7 +84,7 @@ while(True):
             h_r = y_r1 - m_r*x_r1
             
             print("------------------------RIGHT----------------------")
-        elif coef_angular > -2.2 and coef_angular < -0.55:
+        elif coef_angular > -2.2 and coef_angular < -0.5:
             x_l1 = x1
             x_l2 = x2
             y_l1 = y1
@@ -103,4 +107,3 @@ while(True):
         break
 video1.release()
 cv2.destroyAllWindows()
-
