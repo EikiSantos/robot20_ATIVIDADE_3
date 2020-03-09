@@ -3,10 +3,10 @@ import numpy as np
 import math
 import auxiliar as aux
 
-#n = input("Qual numero do video gostaria de rodar? (1/2/3)")
-#while n!="1" and n!="2" and n!="3":
-#    n = input("Digite 1, 2 ou 3, por favor!")
-n = "2"
+n = input("Qual numero do video gostaria de rodar? (1/2/3)")
+while n!="1" and n!="2" and n!="3":
+    n = input("Digite 1, 2 ou 3, por favor!")
+#n = "2"
 video = "video{0}.mp4".format(n)
 video1 = cv2.VideoCapture(video)
 coef_angular = 0
