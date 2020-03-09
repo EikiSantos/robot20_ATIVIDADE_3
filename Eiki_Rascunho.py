@@ -18,6 +18,10 @@ x_l1 = 0
 x_l2 = 0
 y_l1 = 0
 y_l2 = 0
+h_l = 1.0
+h_r = 2.0
+m_l = 2.0
+m_r = 1.0
 
 while(True):
 
@@ -72,18 +76,27 @@ while(True):
             x_r2 = x2
             y_r1 = y1
             y_r2 = y2
+            m_r = coef_angular
+            h_r = y_r1 - m_r*x_r1
             
             print("------------------------RIGHT----------------------")
         elif coef_angular > -2.2 and coef_angular < -0.1:
             x_l1 = x1
             x_l2 = x2
             y_l1 = y1
-            y_l2 = y2  
+            y_l2 = y2
+            m_l = coef_angular
+            h_l = y_l1 - m_l*x_l1
             print("------------------------LEFT----------------------")
             
     cv2.line(mask_white,(x_r1,y_r1), (x_r2,y_r2), (50,0,255),2)
     cv2.line(mask_white,(x_l1, y_l1), (x_l2,y_l2), (50,0,255),2) 
-
+    xi = (h_r-h_l)/(m_l-m_r)
+    yi = (m_l*xi + h_l)
+    xii = int(xi)
+    yii = int(yi)
+    cv2.circle(mask_white, (xii, yii), 2, (255,255,255), 2)
+    cv2.circle(mask_white, (xii, yii), 10, (255,255,255), 2)
     cv2.imshow('mask_white', mask_white)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
