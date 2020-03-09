@@ -80,7 +80,7 @@ while(True):
             h_r = y_r1 - m_r*x_r1
             
             print("------------------------RIGHT----------------------")
-        elif coef_angular > -2.2 and coef_angular < -0.1:
+        elif coef_angular > -2.2 and coef_angular < -0.55:
             x_l1 = x1
             x_l2 = x2
             y_l1 = y1
