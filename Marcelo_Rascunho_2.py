@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+
 import sys
 import math
 import cv2
@@ -6,7 +6,7 @@ import numpy as np
 import math
 import auxiliar as aux
 
-video1 = cv2.VideoCapture("video1.mp4")
+video1 = cv2.VideoCapture("video3.mp4")
 #video1 =cv2.rotate(video1, cv2.ROTATE_90_CLOCKWISE)
 x_1 = 0
 x_2 = 0
@@ -34,7 +34,7 @@ while(True):
         print("Codigo de retorno FALSO - problema para capturar o frame")
 
     # Our operations on the frame come her
-    #frame=cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
+    frame=cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
     #cv2.Flip(frame, flipMode=-1)
     #cv.ShowImage('180_rotation', orig)
     #frame = rotateImage(frame, 180)
@@ -81,15 +81,17 @@ while(True):
             y2 = int(y0 - 1000*(a)) 
             deltay = y2 - y1
             deltax = x2 - x1
-            m_inicial = float(deltay/deltax)
+            #m_inicial = float(deltay/deltax)
             lista_coef_ang = [-1.06,-2.71]
             if m_inicial >-5 and m_inicial <-1:
+                #cv2.line(mask_white,(x1,y1), (x2,y2), (100,0,255),2)
                 m_r = m_inicial
                 x_1r = x1
                 x_2r = x2
                 y_1r = y1
                 y_2r = y2
                 h_r = y_1r - m_r*x_1r
+                #y_reta_r = m_r*
             elif m_inicial >0.5 and m_inicial < 1.61:
                 #cv2.line(mask_white,(x1,y1), (x2,y2), (100,0,255),2)
                 m_l = m_inicial
