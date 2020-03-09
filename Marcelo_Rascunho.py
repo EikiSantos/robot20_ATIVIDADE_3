@@ -83,14 +83,14 @@ while(True):
             deltax = x2 - x1
             m_inicial = float(deltay/deltax)
             lista_coef_ang = [-1.06,-2.71]
-            if m_inicial >-5 and m_inicial <-1:
+            if m_inicial >-1.4 and m_inicial <-0.7:
                 m_r = m_inicial
                 x_1r = x1
                 x_2r = x2
                 y_1r = y1
                 y_2r = y2
                 h_r = y_1r - m_r*x_1r
-            elif m_inicial >0.5 and m_inicial < 1.61:
+            elif m_inicial >0.8 and m_inicial < 1.4:
                 m_l = m_inicial
                 x_1l = x1
                 x_2l = x2

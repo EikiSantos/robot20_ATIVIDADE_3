@@ -8,6 +8,7 @@ import auxiliar as aux
 
 video1 = cv2.VideoCapture("video3.mp4")
 #video1 =cv2.rotate(video1, cv2.ROTATE_90_CLOCKWISE)
+
 x_1 = 0
 x_2 = 0
 y_1 = 0
@@ -24,7 +25,7 @@ h_r=1.0
 h_l=2.0
 m_l=2.0
 m_r=1.0
-
+m_inicial = 1
 
 while(True):
     # Capture frame-by-frame
@@ -43,8 +44,8 @@ while(True):
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     white = "#eb4034"
     white_1, white_2 = aux.ranges(white)
-    branco_1 = np.array([0, 0, 210], dtype=np.uint8)
-    branco_2 = np.array([255, 40, 255], dtype=np.uint8)
+    branco_1 = np.array([0, 0, 230], dtype=np.uint8)
+    branco_2 = np.array([255, 20, 255], dtype=np.uint8)
     mask_white = cv2.inRange(hsv, branco_1, branco_2)
     edges = cv2.Canny(gray,50,150,apertureSize = 3) 
     lines = cv2.HoughLines(mask_white,1,np.pi/180, 200)
@@ -78,12 +79,15 @@ while(True):
             y2 = int(y0 - 1000*(a)) 
                 
             # y2 stores the rounded off value of (rsin(theta)-1000cos(theta)) 
-            y2 = int(y0 - 1000*(a)) 
+            y2 = int(y0 - 1000*(a))
+            
             deltay = y2 - y1
             deltax = x2 - x1
-            #m_inicial = float(deltay/deltax)
+            if deltax == 0:
+                deltax=1
+            m_inicial = (deltay/deltax)
             lista_coef_ang = [-1.06,-2.71]
-            if m_inicial >-5 and m_inicial <-1:
+            if m_inicial >-7 and m_inicial <-4:
                 #cv2.line(mask_white,(x1,y1), (x2,y2), (100,0,255),2)
                 m_r = m_inicial
                 x_1r = x1
@@ -92,7 +96,7 @@ while(True):
                 y_2r = y2
                 h_r = y_1r - m_r*x_1r
                 #y_reta_r = m_r*
-            elif m_inicial >0.5 and m_inicial < 1.61:
+            elif m_inicial >3.5 and m_inicial < 4:
                 #cv2.line(mask_white,(x1,y1), (x2,y2), (100,0,255),2)
                 m_l = m_inicial
                 x_1l = x1
