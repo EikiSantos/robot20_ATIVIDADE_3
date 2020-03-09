@@ -22,6 +22,10 @@ h_l = 1.0
 h_r = 2.0
 m_l = 2.0
 m_r = 1.0
+list_m1 = []
+list_m2 = []
+mean_l1 = 0
+mean_l2 = 0
 
 while(True):
 
@@ -64,7 +68,7 @@ while(True):
         delta_y = y1-y2
         if delta_x == 0:
             coef_angular = 0
-            print("PULEI")
+            #print("PULEI")
         else:
             coef_angular = delta_y/delta_x
         modulo_coef = ((coef_angular - coef_angular_anterior)**2)**0.5
@@ -75,7 +79,15 @@ while(True):
         print(' ')
         print("COEF ANGULAR: ", coef_angular)
         print(' ')
-        if coef_angular > 0.9 and coef_angular < 3.84:
+        if coef_angular > 0: 
+            list_m1.append(coef_angular)
+        elif coef_angular < 0:
+            list_m2.append(coef_angular)
+        mean_l1 = np.mean(list_m1)
+        mean_l2 = np.mean(list_m2)
+        print("MEDIA2: ", mean_l2+0.5, "ate", mean_l2+1.5)
+        print("MEDIA2: ", mean_l1-1.5, "ate", mean_l1-0.5)
+        if coef_angular > (mean_l1-1.5) and coef_angular < (mean_l1-0.5):
             x_r1 = x1
             x_r2 = x2
             y_r1 = y1
@@ -83,15 +95,15 @@ while(True):
             m_r = coef_angular
             h_r = y_r1 - m_r*x_r1
             
-            print("------------------------RIGHT----------------------")
-        elif coef_angular > -2.2 and coef_angular < -0.5:
+            #print("------------------------RIGHT----------------------")
+        elif coef_angular > (mean_l2+0.5) and coef_angular < (mean_l2+1.5):
             x_l1 = x1
             x_l2 = x2
             y_l1 = y1
             y_l2 = y2
             m_l = coef_angular
             h_l = y_l1 - m_l*x_l1
-            print("------------------------LEFT----------------------")
+            #print("------------------------LEFT----------------------")
             
     cv2.line(mask_white,(x_r1,y_r1), (x_r2,y_r2), (50,0,255),2)
     cv2.line(mask_white,(x_l1, y_l1), (x_l2,y_l2), (50,0,255),2) 
