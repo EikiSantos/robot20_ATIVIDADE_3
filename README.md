@@ -6,3 +6,6 @@ Material copiado das fontes originais:
 
 [https://www.pyimagesearch.com/2017/09/11/object-detection-with-deep-learning-and-opencv/](https://www.pyimagesearch.com/2017/09/11/object-detection-with-deep-learning-and-opencv/)
 
+Futuras Iterações:
+
+Mudar a mascara (mask_white) para pegar apenas o contorno das duas linhas brancas.
