@@ -9,3 +9,11 @@ Material copiado das fontes originais:
 Futuras Iterações:
 
 Mudar a mascara (mask_white) para pegar apenas o contorno das duas linhas brancas.
+
+# LEGENDA DE ARQUIVOS:
+
+1. Entrega_final.py: Arquivo com o programa referente à parte 1 - Ponto de fuga.
+
+2. roda.py: Arquivo com o script utilizado para a realização da parte 5 - Robo quadrado.
+
+3. le_scan.py: Arquivo com o script utilizado para a realização da parte 6 - Robo indeciso.
