@@ -2,9 +2,9 @@
 
 1. Entrega_final.py: Arquivo com o programa referente à parte 1 - Ponto de fuga.
 
-2. roda.py: Arquivo com o script utilizado para a realização da parte 5 - Robo quadrado.
+2. roda.py: Arquivo com o script utilizado para a realização da parte 5 - Robo quadrado. https://www.youtube.com/watch?v=5csjm0zmqws
 
-3. le_scan.py: Arquivo com o script utilizado para a realização da parte 6 - Robo indeciso.
+3. le_scan.py: Arquivo com o script utilizado para a realização da parte 6 - Robo indeciso. https://www.youtube.com/watch?v=8MbEgbbqtNI
 
 ## Fontes:
 
